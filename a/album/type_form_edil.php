@@ -82,29 +82,29 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
-	  body{
-		  
+    body{
+      
  background-color: #D3D3D3
-	; /* เปลี่ยนสีพื้นหลังของทั้งหน้า */
+  ; /* เปลี่ยนสีพื้นหลังของทั้งหน้า */
     background-repeat: no-repeat;
   }
   .col-lg-4 {
     background-color: #808080; /* สีเทา */
   }
-		 .navbar, .bg-dark {
+     .navbar, .bg-dark {
         background-color: #808080 !important; /*  navbar และพื้นหลัง */
       }
  .navbar-brand, .nav-link, .text-white {
         color: #000000 !important; /* ตัวอักษรใน navbar  */
       }
-		.btn-secondary {
+    .btn-secondary {
         background-color: #808080; /* ปุ่ม */
         border-color:#808080;
       }
-		.text-muted {
+    .text-muted {
         color: #000000 !important; /* ข้อความตัวเล็ก */
       }
-		 .lead {
+     .lead {
         color: #000000 !important; /* ข้อความหลัก */
       }
  .featurette-divider {
@@ -114,18 +114,18 @@
       .col-lg-4 {
         background-color: #000000; /* พื้นหลังคอลัมน์ */
       }
-		h1, h2 {
+    h1, h2 {
         color: #000000; /* สำหรับ h1 และ h2 */
       }
 
       .featurette-heading {
         color: #000000 !important; /* สำหรับข้อความภายใน featurette */
       }
-		 footer {
+     footer {
         background-color: #808080;
         color: #808080;
       }
-		.heading{color:#ec407a !important;  }
+    .heading{color:#ec407a !important;  }
     </style>
 
     
@@ -183,16 +183,26 @@
       </button>
   </div>
 </header>
+<<<<<<< HEAD
+    <div class="container mt-5">
+    <h1 class="text-center">แก้ไขประเภทสินค้า</h1>
+
+    <!-- ฟอร์มเดียว -->
+    <form method="post" action="">
+=======
 <div class="container mt-5">
     <h1 class="text-center">แก้ประเภทสินค้า</h1>
 
     <!-- แก้ไขให้มีฟอร์มเดียว -->
     <form method="post" action="">
 
+>>>>>>> a80c9be253a63c2a2df7714e4f9d1f9a4b6c3708
         <div class="form-group">
             <label for="c_name">ชื่อประเภทสินค้า:</label>
             <input type="text" class="form-control" id="c_name" name="c_name" value="" required>
         </div>
+<<<<<<< HEAD
+=======
 
         <a href="type.php" class="btn btn-secondary">กลับไปหน้าหลัก</a>
 
@@ -201,9 +211,59 @@
 
     </form>
 </div>
+>>>>>>> a80c9be253a63c2a2df7714e4f9d1f9a4b6c3708
 
+        <input type="hidden" name="c_id" value="<?php echo $c_id; ?>"> <!-- เพิ่มฟิลด์สำหรับ c_id -->
+
+        <a href="type.php" class="btn btn-secondary">กลับไปหน้าหลัก</a>
+
+        <!-- ปุ่มบันทึกให้อยู่ในฟอร์มเดียว -->
+        <button type="submit" class="btn btn-primary" name="update">บันทึก</button>
+    </form>
+</div>
+<meta charset="UTF-8">
 <?php
 // เชื่อมต่อฐานข้อมูล
+<<<<<<< HEAD
+include('connectdb.php'); // ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้านี้
+
+// ตรวจสอบว่ามีการส่ง c_id มาหรือไม่
+if (isset($_REQUEST["ID"])) {
+    // รับค่า c_id จากการร้องขอ
+    $c_id = $_REQUEST["ID"];
+
+    // ตรวจสอบการส่ง c_name มาหรือไม่
+    if (isset($_POST['c_name'])) {
+        $c_name = $_POST['c_name'];
+
+        // เตรียมคำสั่งอัปเดตข้อมูล
+        $sql = "UPDATE category SET c_name = ? WHERE c_id = ?";
+        
+        // เตรียม statement
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $c_name, $c_id); // 'si' คือ string และ integer
+
+        // ตรวจสอบการอัปเดตข้อมูล
+        if ($stmt->execute()) {
+            echo "<script type='text/javascript'>";
+            echo "alert('อัปเดตข้อมูลสำเร็จ');"; // แจ้งเตือนเมื่อทำการอัปเดตสำเร็จ
+            echo "window.location = 'type.php';"; // กลับไปยังหน้า type.php
+            echo "</script>";
+        } else {
+            echo "<script type='text/javascript'>";
+            echo "alert('เกิดข้อผิดพลาดในการอัปเดต: " . $stmt->error . "');"; // แจ้งเตือนเมื่อเกิดข้อผิดพลาด
+            echo "</script>";
+        }
+
+        // ปิด statement
+        $stmt->close();
+    }
+} else {
+    echo "<script type='text/javascript'>";
+    echo "alert('ไม่พบ ID สำหรับการอัปเดต');"; // แจ้งเตือนถ้าไม่มี ID
+    echo "window.location = 'type.php';"; // กลับไปยังหน้า type.php
+    echo "</script>";
+=======
 include_once("connectdb.php");
 
 // ตรวจสอบว่ามีการส่งคำขอแบบ POST หรือไม่
@@ -230,10 +290,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ปิด statement
   $stmt->close();
+>>>>>>> a80c9be253a63c2a2df7714e4f9d1f9a4b6c3708
 }
 
 // ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
+<<<<<<< HEAD
+?>
+
+=======
 
 ?>
 <meta charset="UTF-8">
@@ -267,6 +332,7 @@ mysqli_close($con); //ปิดการเชื่อมต่อ database
   echo "</script>";
 }
 ?>
+>>>>>>> a80c9be253a63c2a2df7714e4f9d1f9a4b6c3708
 
       
             </div> 
