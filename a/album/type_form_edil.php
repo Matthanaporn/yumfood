@@ -247,7 +247,7 @@ include('connectdb.php');  //ไฟล์เชื่อมต่อกับ da
 //ทำการปรับปรุงข้อมูลที่จะแก้ไขลงใน database 
   
   $sql = "UPDATE category SET  
-      c_came='$c_name' 
+      c_name='$c_name' 
       WHERE c_id='$c_id' ";
 
 $result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error());
