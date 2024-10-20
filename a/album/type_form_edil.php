@@ -215,6 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // อัปเดตข้อมูลลงในฐานข้อมูลโดยอ้างอิงจาก category_id
     $sql = "UPDATE category SET c_name = '$c_name' WHERE c_id = '$c_id'";
 
+    
     // ตรวจสอบการอัปเดตข้อมูล
     if (mysqli_query($conn, $sql)) {
         echo "อัปเดตข้อมูลสำเร็จ!";
