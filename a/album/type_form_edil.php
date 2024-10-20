@@ -208,21 +208,63 @@ include_once("connectdb.php");
 
 // ตรวจสอบว่ามีการส่งคำขอแบบ POST หรือไม่
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // รับค่าจากฟอร์ม
-    $c_id = $_POST['c_id']; // รับค่า c_id
-    $c_name = $_POST['c_name']; // รับค่า c_name
+  // รับค่าจากฟอร์ม
+  $c_id = $_POST['c_id'];
+  $c_name = $_POST['c_name'];
 
-    // อัปเดตข้อมูลลงในฐานข้อมูลโดยอ้างอิงจาก category_id
-    $sql = "UPDATE category SET c_name = '$c_name' WHERE c_id = '$c_id'";
+  // เตรียม statement
+  $stmt = $conn->prepare("UPDATE category SET c_name=? WHERE c_id=?");
+  $stmt->bind_param("si", $c_name, $c_id); // 'si' คือ string และ integer
 
-    
-    // ตรวจสอบการอัปเดตข้อมูล
-    if (mysqli_query($conn, $sql)) {
-        echo "อัปเดตข้อมูลสำเร็จ!";
-    } else {
-        // แสดงข้อความเมื่อเกิดข้อผิดพลาด
-        echo "เกิดข้อผิดพลาดในการอัปเดต: " . mysqli_error($conn);
-    }
+  // ตรวจสอบการอัปเดตข้อมูล
+  if ($stmt->execute()) {
+      echo "<script type='text/javascript'>";
+      echo "alert('อัปเดตข้อมูลสำเร็จ');";
+      echo "window.location = 'type.php';";
+      echo "</script>";
+  } else {
+      echo "<script type='text/javascript'>";
+      echo "alert('เกิดข้อผิดพลาดในการอัปเดต: " . $stmt->error . "');";
+      echo "</script>";
+  }
+
+  // ปิด statement
+  $stmt->close();
+}
+
+// ปิดการเชื่อมต่อฐานข้อมูล
+$conn->close();
+
+?>
+<meta charset="UTF-8">
+<?php
+//1. เชื่อมต่อ database: 
+include('connectdb.php');  //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
+
+//สร้างตัวแปรสำหรับรับค่าที่นำมาแก้ไขจากฟอร์ม
+  $c_id = $_REQUEST["c_id"];
+  $c_name = $_REQUEST["c_name"];
+//ทำการปรับปรุงข้อมูลที่จะแก้ไขลงใน database 
+  
+  $sql = "UPDATE category SET  
+      c_came='$c_name' 
+      WHERE c_id='$c_id' ";
+
+$result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error());
+mysqli_close($con); //ปิดการเชื่อมต่อ database 
+
+//จาวาสคริปแสดงข้อความเมื่อบันทึกเสร็จและกระโดดกลับไปหน้าฟอร์ม
+  
+  if($result){
+  echo "<script type='text/javascript'>";
+  echo "alert('Update');";
+  echo "window.location = 'type.php'; ";
+  echo "</script>";
+  }
+  else{
+  echo "<script type='text/javascript'>";
+  echo "alert('Error back to Update again');";
+  echo "</script>";
 }
 ?>
 

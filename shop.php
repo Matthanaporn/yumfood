@@ -118,7 +118,7 @@ if (isset($_POST['table_id'])) {
             </li>
 	          
 	          <li class="nav-item"><a href="blog.php" class="nav-link">ประวัติการสั่งอาหาร</a></li>
-	          <li class="nav-item"><a href="./a/sign-in/" class="nav-link">Admin</a></li>
+	          <li class="nav-item"><a href="../a/sign-in/" class="nav-link">Admin</a></li>
 	          <li class="nav-item cta cta-colored"><a href="basket.php" class="nav-link"><span class="icon-shopping_cart"></span>[ตะกร้า]</a></li>
 
 	        </ul>
