@@ -183,32 +183,49 @@
       </button>
   </div>
 </header>
+<div class="container mt-5">
+    <h1 class="text-center">แก้ประเภทสินค้า</h1>
 
+    <!-- แก้ไขให้มีฟอร์มเดียว -->
+    <form method="post" action="">
+
+        <div class="form-group">
+            <label for="c_name">ชื่อประเภทสินค้า:</label>
+            <input type="text" class="form-control" id="c_name" name="c_name" value="" required>
+        </div>
+
+        <a href="type.php" class="btn btn-secondary">กลับไปหน้าหลัก</a>
+
+        <!-- ปุ่มบันทึกให้อยู่ในฟอร์มเดียว -->
+        <button type="submit" class="btn btn-primary" name="update">บันทึก</button>
+
+    </form>
+</div>
 
 <?php
-//1. เชื่อมต่อ database:
-include('connectdb.php');  //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
-$c_id = $_REQUEST["ID"];
-//2. query ข้อมูลจากตาราง:
-$sql = "SELECT * FROM category WHERE c_id='$c_id' ";
-$result = mysqli_query($conn, $sql) or die ("Error in query: $sql " . mysqli_error());
-$row = mysqli_fetch_array($result);
-extract($row);
+// เชื่อมต่อฐานข้อมูล
+include_once("connectdb.php");
+
+// ตรวจสอบว่ามีการส่งคำขอแบบ POST หรือไม่
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // รับค่าจากฟอร์ม
+    $c_id = $_POST['c_id']; // รับค่า c_id
+    $c_name = $_POST['c_name']; // รับค่า c_name
+
+    // อัปเดตข้อมูลลงในฐานข้อมูลโดยอ้างอิงจาก category_id
+    $sql = "UPDATE category SET c_name = '$c_name' WHERE c_id = '$c_id'";
+
+    // ตรวจสอบการอัปเดตข้อมูล
+    if (mysqli_query($conn, $sql)) {
+        echo "อัปเดตข้อมูลสำเร็จ!";
+    } else {
+        // แสดงข้อความเมื่อเกิดข้อผิดพลาด
+        echo "เกิดข้อผิดพลาดในการอัปเดต: " . mysqli_error($conn);
+    }
+}
 ?>
-<div class="container">
-  <p> </p>
-    <div class="row">
-      <div class="col-md-12">
-        <form  name="admin" action="type.php" method="POST" id="admin" class="form-horizontal">
-          <input type="hidden" name="c_id" value="<?php echo $c_id; ?>" />
-          <div class="form-group">
-            <div class="col-sm-6" align="left">
-              <input  name="c_name" type="text" required class="form-control" id="c_name" value="<?=$c_name;?>" placeholder="ประเถทสินค้า" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-6" align="right">
-              <button type="submit" class="btn btn-success btn-sm" id="btn"> บันทึก </button>      
+
+      
             </div> 
           </div>
         </form>
