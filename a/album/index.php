@@ -202,7 +202,7 @@ include("connectdb.php");
         <p>
           <a href="insert.php" class="btn btn-primary my-2">เพิ่มสินค้าใหม่</a>
            <a href="view_order.php" class="btn btn-danger">View Order</a>
-          <a href="../yumfood/index.php" class="btn btn-secondary">Home</a>
+          <a href="yumfood/shop.php" class="btn btn-secondary">Home</a>
           <a href="type.php" class="btn btn-success">type</a>
         </p>
         <form method="post" action="">
